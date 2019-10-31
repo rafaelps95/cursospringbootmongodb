@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.rafaelpedrodasilva.cursospringbootmongo.dto.AuthorDTO;
 import com.rafaelpedrodasilva.cursospringbootmongo.entities.Post;
 import com.rafaelpedrodasilva.cursospringbootmongo.entities.User;
 import com.rafaelpedrodasilva.cursospringbootmongo.repository.PostRepository;
@@ -31,14 +32,15 @@ public class Instantiation implements CommandLineRunner{
 		postRepository.deleteAll();
 		userRepository.deleteAll();
 
-		User maria = new User(null, "Fabricio Mozão Delite", "fafi@gmail.com");
-		User alex = new User(null, "Rafael Pedro da Silva", "rafael@gmail.com");
-		User bob = new User(null, " Grey", "bob@gmail.com");
+		User fabricio = new User(null, "Fabricio Mozão Delite", "fafi@gmail.com");
+		User rafael = new User(null, "Rafael Pedro da Silva", "rafael@gmail.com");
+		User lula = new User(null, "Lula da Silva", "lula13@pt.com");
 		
-		Post post1 = new Post(null, sdf.parse("16/10/2019"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", maria);
-		Post post2 = new Post(null, sdf.parse("31/10/2019"), "Bom dia", "Acordei feliz hoje!", maria);
+		userRepository.saveAll(Arrays.asList(fabricio, rafael, lula));
+		
+		Post post1 = new Post(null, sdf.parse("16/10/2019"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(fabricio));
+		Post post2 = new Post(null, sdf.parse("31/10/2019"), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(fabricio));
 
-		userRepository.saveAll(Arrays.asList(maria, alex, bob));
 		postRepository.saveAll(Arrays.asList(post1, post2));
 	}
 
